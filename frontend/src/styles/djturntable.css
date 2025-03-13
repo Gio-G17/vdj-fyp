@@ -1,0 +1,99 @@
+:root {
+  --color-theme: rgb(2, 176, 236);
+  --color-record-center: #fff;
+  --color-record-inner: #131313;
+  --color-record-groove: #000;
+  --color-record-outer: #000;
+  --spacing-groove: 10%;
+  --font-family: "Poppins", cursive;
+  --turntable-height: clamp(300px, 90vmin, 500px);
+  --disc-dimension: calc(var(--turntable-height) * 0.9);
+}
+
+
+.layout {
+  width: 100vw;
+  height: 88vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.turntable {
+  height: var(--turntable-height);
+  display: inline-flex;
+  gap: 1rem;
+  padding: calc(var(--turntable-height) * 0.05);
+}
+
+.disc-container {
+  aspect-ratio: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid #000;
+  background: linear-gradient(45deg, rgb(255, 255, 255), rgb(66, 66, 66));
+}
+
+.disc {
+  position: relative;
+  aspect-ratio: 1;
+  width: 91%;
+  overflow: hidden;
+  border-radius: 50%;
+  background: repeating-radial-gradient(
+    var(--color-record-inner),
+    var(--color-record-groove) 2px,
+    var(--color-record-groove) 4px,
+    var(--color-record-inner) 6px
+  );
+  cursor: grab;
+}
+
+.disc.is-scratching {
+  cursor: grabbing;
+}
+
+.disc__que {
+  --dim: 10px;
+  position: absolute;
+  top: 50%;
+  right: 30px;
+  width: var(--dim);
+  height: var(--dim);
+  background: var(--color-theme);
+  border-radius: 50%;
+}
+
+.disc__label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: calc(var(--disc-dimension) * 0.4);
+  height: calc(var(--disc-dimension) * 0.4);
+  background: no-repeat url(https://pimskie.dev/public/assets/logo.jpg) center center;
+  background-size: cover;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.disc__middle {
+  --dim: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: var(--dim);
+  height: var(--dim);
+  background: rgb(26, 26, 26);
+  border-radius: 50%;
+}
+
+
