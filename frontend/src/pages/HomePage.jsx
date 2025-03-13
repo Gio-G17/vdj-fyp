@@ -4,15 +4,23 @@ import HeroSection from "../components/HeroSection";
 import AboutUs from "../components/AboutUs";
 import MusicRooms from "../components/MusicRooms";
 import DJs from "../components/DJs";
+import DJTurnTable from "../components/DJTurnTable";
+import "../styles/homepage.css"
 
 const HomePage = () => {
   return (
-    <div className="bg-black text-white">
+    <div>
+    <div className="main-sec">
       <Navbar />
-      <HeroSection />
+      <DJTurnTable />
+      {/* <HeroSection /> */}
+      </div>
+       <div className="sec-sec">
+  
       <AboutUs />
       <MusicRooms />
       <DJs />
+    </div>
     </div>
   );
 };
