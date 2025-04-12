@@ -8,6 +8,8 @@ const otpRoutes = require("./routes/otpRoutes");
 const djRoutes = require("./routes/djRoutes");
 const contactRoutes = require("./routes/contactRoutes");
 const bookingRoutes = require("./routes/bookingRoutes");
+const streamOtpRoutes = require("./routes/streamOtpRoutes");
+
 
 
 const app = express();
@@ -26,6 +28,7 @@ app.use("/api/otp", otpRoutes);
 app.use("/api/djs", djRoutes); // ✅ Register DJ Routes
 app.use("/api/contact", contactRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/otp", streamOtpRoutes);
 
 
 app.get("/", (req, res) => res.send("Backend running..."));

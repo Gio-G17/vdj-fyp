@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import BookingFormModal from "../components/BookingFormModal";
 
@@ -47,14 +47,22 @@ const BookingsPage = () => {
       ) : (
         <ul>
           {bookings.map((booking) => (
-            <li key={booking._id}>
+            <li key={booking._id} style={{ marginBottom: "12px" }}>
               {booking.date} @ {booking.time} — {booking.room} with {booking.dj}
+              <br />
+              <Link to={`/access-room/${booking._id}`}>
+                <button style={{ marginTop: "6px" }}>Go to Room</button>
+              </Link>
             </li>
           ))}
         </ul>
       )}
 
-      <BookingFormModal open={openModal} handleClose={() => setOpenModal(false)} onBookingSuccess={fetchBookings} />
+      <BookingFormModal
+        open={openModal}
+        handleClose={() => setOpenModal(false)}
+        onBookingSuccess={fetchBookings}
+      />
     </div>
   );
 };
