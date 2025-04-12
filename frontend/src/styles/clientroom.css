@@ -1,0 +1,146 @@
+.client-room-section {
+  height: 95%;
+  max-width: 100vw;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  }
+  
+  /* ==== LOGO SLIDESHOW ==== */
+.client-slideshow-section{
+  height: 25%;
+}
+
+  .client-logos-title {
+    font-size: 32px;
+    font-weight: bold;
+    color: white;
+    font-weight: 300;
+  }
+  
+  .client-logos-carousel {
+    overflow: hidden;
+    width: 100%;
+  }
+  
+  .client-logos-track {
+    display: flex;
+    gap: 60px;
+    animation: scroll-logos 20s linear infinite;
+    padding: 0 40px;
+    width: max-content;
+  }
+  
+  .client-logo {
+    height: 60px;
+    object-fit: contain;
+    filter: grayscale(100%);
+  }
+  
+  @keyframes scroll-logos {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  
+  
+  /* ==== ROOMS ==== */
+  .room-book-section{
+    display: flex;
+    flex-direction: column;
+    height: 75%;
+    justify-content: space-between;
+  }
+
+  .client-room-title {
+    font-size: 32px;
+    font-weight: 300;
+    color: white;
+    margin: 0;
+  }
+  
+  .client-room-title .highlight {
+    color: #f44336;
+    font-weight: 500;
+  }
+  
+  .client-room-list {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 50%;
+    flex-wrap: wrap;
+  }
+  
+  .client-room-card {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: border 0.3s;
+  }
+  
+  .client-room-card.selected .client-room-image {
+    border: 3px solid #f44336;
+  }
+  
+  .client-room-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 3px solid transparent;
+  }
+  
+  .client-room-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+  }
+  
+  /* ==== FOOTER / BUTTON ==== */
+  .client-room-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .room-warning {
+    font-size: 12px;
+    color: #f44336;
+  }
+  
+  .book-room-btn {
+    width: 10%;
+    padding: 10px 30px;
+    font-weight: bold;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: not-allowed;
+    background-color: #444;
+    color: #ccc;
+    transition: background-color 0.3s ease;
+  }
+  
+  .book-room-btn.active {
+    background-color: #f44336;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .book-room-btn.active:hover {
+    background-color: #d7332c;
+  }
+  

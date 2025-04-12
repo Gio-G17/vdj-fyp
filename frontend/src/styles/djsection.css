@@ -1,0 +1,63 @@
+/* DJs Section */
+.djs-section {
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  
+  .djs-intro {
+    text-align: center;
+  }
+  
+  .djs-subtitle {
+    font-size: 24px;
+    letter-spacing: 1px;
+    color: #f44336;
+    margin: 0;
+  }
+  
+  .djs-title {
+    color: white;
+    font-size: 64px;
+    font-weight: 100;
+    line-height: 1.4;
+    margin: 0;
+    margin-top: 2.5%;
+  }
+  
+  .djs-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 100vw;
+    margin-top: 2.5%;
+  }
+  
+  .dj-card {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .dj-image {
+    width: 100%;
+    height: 65%;
+}
+  
+  .dj-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  .dj-genre {
+    font-size: 14px;
+    color: #ccc;
+  }
+  

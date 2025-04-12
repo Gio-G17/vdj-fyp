@@ -20,6 +20,8 @@ const SignInPage = () => {
 
     try {
       const response = await axios.post("http://localhost:5001/api/auth/login", formData);
+      const token = response.data.token;
+      localStorage.setItem("token", token);
       setMessage(response.data.message || "Login successful!");
     } catch (error) {
       setMessage(error.response?.data?.message || "An error occurred");

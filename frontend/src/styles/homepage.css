@@ -1,3 +1,18 @@
 .main-sec{
+height: 100vh;
+}
 
+.abt-sec{
+    height: 88vh;
+    width: 100vw;
+}
+
+.dj-sec{
+    height: 88vh;
+    width: 100vw;
+}
+
+.cr-sec{
+    height: 88vh;
+    width: 100vw;
 }

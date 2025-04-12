@@ -5,7 +5,10 @@ const cors = require("cors");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const otpRoutes = require("./routes/otpRoutes");
-const djRoutes = require("./routes/djRoutes"); // ✅ Import DJ Routes
+const djRoutes = require("./routes/djRoutes");
+const contactRoutes = require("./routes/contactRoutes");
+const bookingRoutes = require("./routes/bookingRoutes");
+
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -21,6 +24,9 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/otp", otpRoutes);
 app.use("/api/djs", djRoutes); // ✅ Register DJ Routes
+app.use("/api/contact", contactRoutes);
+app.use("/api/bookings", bookingRoutes);
+
 
 app.get("/", (req, res) => res.send("Backend running..."));
 
