@@ -1,46 +1,48 @@
 /* Navbar Styles */
 .navbar {
-    display: flex;
-    width: 100vw;
-    height: 12vh;
-    justify-content: space-between;
-    align-items: center;
-/* padding-left: 5vw;
+  display: flex;
+  position: fixed;
+  width: 100vw;
+  height: 12vh;
+  justify-content: space-between;
+  align-items: center;
+  /* padding-left: 5vw;
 padding-right: 5vw; */
+  z-index: 900;
+  background-color: #141414;
 }
 
-  .logo-pages{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    align-items: center;
-    margin-left: 5vw;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    margin-right: 40%;
-  }
-  
-  .page-links {
-    display: flex;
-    gap: 40%;
-  }
-  
-  .nav-item {
-    text-decoration: none;
-    color: white;
-    transition: color 0.3s ease-in-out;
-  }
-  
-  .nav-item:hover {
-    color: red;
-    text-decoration: underline;
-  }
-  
-  .profile-icon {
-    font-size: 24px;
-    margin-right: 5vw;
-  }
-  
+.logo-pages {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-left: 5vw;
+}
+
+.logo {
+  height: 40%;
+  margin-right: 40%;
+}
+
+.page-links {
+  display: flex;
+  gap: 40%;
+}
+
+.nav-item {
+  text-decoration: none;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+.nav-item:hover {
+  color: red;
+  text-decoration: underline;
+}
+
+.profile-icon {
+  font-size: 24px;
+  margin-right: 5vw;
+}

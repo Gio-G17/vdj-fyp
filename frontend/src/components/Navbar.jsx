@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/navbar.css";
+import WebLogo from "../assets/logos/WebLogo.png"  
 
 const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="logo-pages">
-      <h1 className="logo">VDJ</h1>
+      <img src = {WebLogo} alt="vdjLogo" className="logo" />
       <div className="page-links">
         <Link to="/" className="nav-item">Home</Link>
         <Link to="/book" className="nav-item">Book</Link>
