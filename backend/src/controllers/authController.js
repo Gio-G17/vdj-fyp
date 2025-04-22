@@ -7,27 +7,30 @@ const nodemailer = require("nodemailer");
 // Temporary storage for reset tokens (for production, store in DB)
 let resetTokens = {};
 
-// Nodemailer Setup (Use your email credentials)
+// Nodemailer Setup
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.EMAIL_USER, // Your email
-    pass: process.env.EMAIL_PASS, // Your email app password
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
-// ✅ **Register User**
+// ✅ Register User (always as 'client')
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
 
-    // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ error: "User already exists" });
 
-    // Hash password and save new user
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({ name, email, password: hashedPassword });
+    const user = new User({
+      name,
+      email,
+      password: hashedPassword,
+      role: "client" // 👈 force role to client
+    });
 
     await user.save();
     res.status(201).json({ message: "User registered successfully" });
@@ -36,7 +39,7 @@ exports.register = async (req, res) => {
   }
 };
 
-// ✅ **Login User**
+// ✅ Login User
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -47,14 +50,20 @@ exports.login = async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ error: "Invalid credentials" });
 
-    // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    // ✅ Include user ID and role in token
+    const token = jwt.sign(
+      { userId: user._id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
+    );
+
     res.json({ token, message: "Login successful" });
   } catch (error) {
     res.status(500).json({ error: "Server error" });
   }
 };
 
+// ✅ Forgot Password
 exports.forgotPassword = async (req, res) => {
   const { email } = req.body;
 
@@ -62,14 +71,12 @@ exports.forgotPassword = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    // Generate a token (valid for 1 hour)
     const token = crypto.randomBytes(20).toString("hex");
     resetTokens[email] = { token, expires: Date.now() + 3600000 };
 
-    // ✅ Fix: Encode email to prevent issues
     const resetLink = `http://localhost:5173/reset-password?token=${encodeURIComponent(token)}&email=${encodeURIComponent(email)}`;
 
-    console.log("Sending Reset Link:", resetLink); // Debugging line
+    console.log("Sending Reset Link:", resetLink);
 
     await transporter.sendMail({
       from: process.env.EMAIL_USER,
@@ -85,8 +92,7 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
-
-
+// ✅ Reset Password
 exports.resetPassword = async (req, res) => {
   const { email, token, newPassword } = req.body;
 
@@ -98,12 +104,11 @@ exports.resetPassword = async (req, res) => {
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ error: "User not found" });
 
-    // Hash new password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
     user.password = hashedPassword;
     await user.save();
 
-    delete resetTokens[email]; // Remove used token
+    delete resetTokens[email];
 
     res.json({ message: "Password successfully reset" });
   } catch (error) {
