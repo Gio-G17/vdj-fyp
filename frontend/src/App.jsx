@@ -8,6 +8,7 @@ import ResetPasswordPage from "./pages/auth/ResetPasswordPage"; // Import Reset 
 import BookingsPage from "./pages/BookingsPage";
 import AccessRoomPage from "./pages/auth/AccessRoomPage";
 import StreamRoomPage from "./pages/StreamRoomPage";
+import AdminDashboard from "./pages/AdminDashboard";
 
 
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/bookings" element={<BookingsPage />} />
         <Route path="/access-room/:bookingId" element={<AccessRoomPage />} />
         <Route path="/stream-room/:bookingId" element={<StreamRoomPage />} />
+        <Route path="/admin" element={<AdminDashboard />} />
       </Routes>
     </Router>
   );

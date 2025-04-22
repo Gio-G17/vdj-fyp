@@ -1,0 +1,40 @@
+.admin-dashboard {
+    padding: 40px;
+    color: white;
+    background-color: #111;
+  }
+  
+  .admin-dashboard h2 {
+    margin-bottom: 20px;
+  }
+  
+  .message {
+    margin-bottom: 20px;
+    color: lightgreen;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  th, td {
+    padding: 10px;
+    border: 1px solid #333;
+    text-align: left;
+  }
+  
+  button {
+    padding: 6px 10px;
+    background-color: crimson;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: darkred;
+  }
+  
