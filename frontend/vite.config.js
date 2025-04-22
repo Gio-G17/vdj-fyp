@@ -10,6 +10,7 @@ import path from 'path';
 export default defineConfig({
   plugins: [basicSsl(), react()],
   server: {
+    https: false,
     host: 'localhost',
     port: 5173,
   },
