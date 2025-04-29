@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField,
   MenuItem, Select, InputLabel, FormControl
@@ -19,6 +19,20 @@ const BookingFormModal = ({ open, handleClose, onBookingSuccess }) => {
     phone: "",
     notes: ""
   });
+
+  const [djList, setDjList] = useState([]);
+
+  useEffect(() => {
+    const fetchDJs = async () => {
+      try {
+        const res = await axios.get("http://localhost:5001/api/users/djs"); // ✅ Get DJs (users with role "dj")
+        setDjList(res.data);
+      } catch (err) {
+        console.error("Failed to fetch DJs:", err);
+      }
+    };
+    fetchDJs();
+  }, []);
 
   const handleChange = (field) => (e) => {
     setFormData({ ...formData, [field]: e.target.value });
@@ -68,10 +82,11 @@ const BookingFormModal = ({ open, handleClose, onBookingSuccess }) => {
         <FormControl fullWidth margin="dense">
           <InputLabel>DJ</InputLabel>
           <Select value={formData.dj} label="DJ" onChange={handleChange("dj")}>
-            <MenuItem value="DJ Ryan">DJ Ryan</MenuItem>
-            <MenuItem value="DJ Liza">DJ Liza</MenuItem>
-            <MenuItem value="DJs AJ & J">DJs AJ & J</MenuItem>
-            <MenuItem value="DJ Sara">DJ Sara</MenuItem>
+            {djList.map((dj) => (
+              <MenuItem key={dj._id} value={dj._id}>
+                {dj.email}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
 
