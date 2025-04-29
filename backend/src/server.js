@@ -54,33 +54,50 @@ app.use("/api/users", userRoutes);
 
 app.get("/", (req, res) => res.send("Backend running..."));
 
-// ✅ Socket.IO Signaling
 io.on("connection", (socket) => {
-  console.log(`✅ Socket connected: ${socket.id}`);
+	socket.emit("me", socket.id)
 
-  socket.on("join-room", (roomId) => {
-    socket.join(roomId);
-    console.log(`👥 ${socket.id} joined room ${roomId}`);
+	socket.on("disconnect", () => {
+		socket.broadcast.emit("callEnded")
+	})
 
-    const roomSockets = [...io.sockets.adapter.rooms.get(roomId) || []];
-    console.log(`👥 Room ${roomId} has ${roomSockets.length} members:`, roomSockets);
+	socket.on("callUser", (data) => {
+		io.to(data.userToCall).emit("callUser", { signal: data.signalData, from: data.from, name: data.name })
+	})
 
-    roomSockets.forEach((otherSocketId) => {
-      if (otherSocketId !== socket.id) {
-        socket.to(otherSocketId).emit("user-joined", socket.id);
-        socket.emit("user-joined", otherSocketId);
-      }
-    });
-  });
+	socket.on("answerCall", (data) => {
+		io.to(data.to).emit("callAccepted", data.signal)
+	})
+})
 
-  socket.on("signal", ({ to, signal }) => {
-    io.to(to).emit("signal", { from: socket.id, signal });
-  });
+// // ✅ Socket.IO Signaling
+// io.on("connection", (socket) => {
+//   console.log(`✅ Socket connected: ${socket.id}`);
+//   socket.emit("me", socket.id);  // <-- ✅ ADD THIS LINE
 
-  socket.on("disconnect", () => {
-    console.log(`❌ Socket disconnected: ${socket.id}`);
-  });
-});
+//   socket.on("join-room", (roomId) => {
+//     socket.join(roomId);
+//     console.log(`👥 ${socket.id} joined room ${roomId}`);
+
+//     const roomSockets = [...io.sockets.adapter.rooms.get(roomId) || []];
+//     console.log(`👥 Room ${roomId} has ${roomSockets.length} members:`, roomSockets);
+
+//     roomSockets.forEach((otherSocketId) => {
+//       if (otherSocketId !== socket.id) {
+//         socket.to(otherSocketId).emit("user-joined", socket.id);
+//         socket.emit("user-joined", otherSocketId);
+//       }
+//     });
+//   });
+
+//   socket.on("signal", ({ to, signal }) => {
+//     io.to(to).emit("signal", { from: socket.id, signal });
+//   });
+
+//   socket.on("disconnect", () => {
+//     console.log(`❌ Socket disconnected: ${socket.id}`);
+//   });
+// });
 
 // ✅ Start server
 server.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
