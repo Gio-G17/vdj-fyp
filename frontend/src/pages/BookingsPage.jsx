@@ -37,6 +37,7 @@ const BookingsPage = () => {
 
   if (loading) return <p style={{ color: "white" }}>Loading bookings...</p>;
 
+
   return (
     <div className="bookings-page">
       <h1>My Bookings</h1>
