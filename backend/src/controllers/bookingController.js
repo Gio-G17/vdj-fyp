@@ -1,11 +1,55 @@
 const Booking = require("../models/Booking");
 const User = require("../models/User");
 
+// exports.createBooking = async (req, res) => {
+//   try {
+//     const { room, dj, date, time, name, phone, email, notes } = req.body;
+//     const userId = req.user.id;
+
+//     const booking = new Booking({
+//       user: userId,
+//       room,
+//       dj,
+//       date,
+//       time,
+//       name,
+//       phone,
+//       email,
+//       notes
+//     });
+
+//     await booking.save();
+//     res.status(201).json({ message: "Booking confirmed", booking });
+//   } catch (err) {
+//     res.status(500).json({ error: "Error creating booking", details: err.message });
+//   }
+// };
+
 exports.createBooking = async (req, res) => {
   try {
     const { room, dj, date, time, name, phone, email, notes } = req.body;
     const userId = req.user.id;
 
+    const bookingDateTime = new Date(`${date}T${time}`);
+    const now = new Date();
+
+    // 1. Prevent booking in the past
+    if (bookingDateTime <= now) {
+      return res.status(400).json({ error: "You cannot book a past time." });
+    }
+
+    // 2. Prevent double booking for the same DJ, date and time
+    const existingBooking = await Booking.findOne({
+      dj,
+      date,
+      time,
+    });
+
+    if (existingBooking) {
+      return res.status(400).json({ error: "This time slot is already booked for the selected DJ." });
+    }
+
+    // Proceed to save
     const booking = new Booking({
       user: userId,
       room,
@@ -24,6 +68,7 @@ exports.createBooking = async (req, res) => {
     res.status(500).json({ error: "Error creating booking", details: err.message });
   }
 };
+
 
 exports.getMyBookings = async (req, res) => {
   try {
@@ -46,3 +91,19 @@ exports.getMyBookings = async (req, res) => {
   }
 };
 
+exports.getDJUnavailableSlots = async (req, res) => {
+  try {
+    const { djId } = req.params;
+
+    const bookings = await Booking.find({ dj: djId });
+
+    const unavailable = bookings.map(b => ({
+      date: b.date, // format: 'YYYY-MM-DD'
+      time: b.time  // format: 'HH:mm'
+    }));
+
+    res.json(unavailable);
+  } catch (err) {
+    res.status(500).json({ error: "Error fetching unavailable slots" });
+  }
+};

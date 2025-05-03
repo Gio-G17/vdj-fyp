@@ -1,0 +1,28 @@
+.react-datepicker-popper {
+  z-index: 1500 !important; /* Ensure it's above the modal */
+}
+
+.react-datepicker {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.react-datepicker__header {
+  background-color: #1976d2; /* MUI primary */
+  color: white;
+  border-bottom: none;
+}
+
+.react-datepicker__current-month,
+.react-datepicker-time__header,
+.react-datepicker-year-header {
+  color: white;
+}
+
+.react-datepicker__day--selected {
+  background-color: #1976d2;
+  color: white;
+}
