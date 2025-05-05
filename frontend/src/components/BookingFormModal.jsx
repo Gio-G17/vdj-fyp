@@ -102,7 +102,7 @@ const BookingFormModal = ({ open, handleClose, onBookingSuccess }) => {
           <Select value={formData.dj} label="DJ" onChange={handleChange("dj")}>
             {djList.map((dj) => (
               <MenuItem key={dj._id} value={dj._id}>
-                {dj.email}
+                {dj.name}
               </MenuItem>
             ))}
           </Select>

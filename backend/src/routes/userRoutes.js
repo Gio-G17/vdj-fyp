@@ -8,7 +8,7 @@ const router = express.Router();
 // ✅ GET all DJs (return email and _id only)
 router.get("/djs", async (req, res) => {
   try {
-    const djs = await User.find({ role: "dj" }).select("email _id");
+    const djs = await User.find({ role: "dj" }).select("name email _id");
     res.json(djs);
   } catch (error) {
     console.error("Error fetching DJs:", error);

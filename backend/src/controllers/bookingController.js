@@ -81,7 +81,7 @@ exports.getMyBookings = async (req, res) => {
       bookings = await Booking.find({ dj: currentUser._id });
     } else {
       // Show bookings made by the client
-      bookings = await Booking.find({ user: currentUser._id });
+      bookings = await Booking.find({ user: currentUser._id});
     }
 
     res.json(bookings);
