@@ -41,7 +41,11 @@ connectDB();
 
 // ✅ Middleware
 app.use(cors(corsOptions));
+const userSocketMap = {};
+global.userSocketMap = userSocketMap;
 app.use(express.json());
+
+
 
 // ✅ Routes
 app.use("/api/auth", authRoutes);
