@@ -76,7 +76,10 @@ const ClientRoomSection = () => {
         </div>
         {/* Book Button */}
         <div className="client-room-footer">
-          {!selectedRoom && <p className="room-warning">Please select a room</p>}
+        <p className={`room-warning ${selectedRoom ? "hidden" : ""}`}>
+  Please select a room
+</p>
+
           <button
             className={`book-room-btn ${selectedRoom ? "active" : "disabled"}`}
             onClick={handleBooking}
