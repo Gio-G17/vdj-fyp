@@ -16,7 +16,7 @@ const HomePage = () => {
         {/* <HeroSection /> */}
       </div>
       <div className="sec-sec">
-        <div className="abt-sec"><AboutUs /></div>
+        <div id="about" className="abt-sec"><AboutUs /></div>
         <div className="dj-sec"><DJSection /></div>
         <div className="cr-sec"><ClientRoomSection /> </div>
       </div>
