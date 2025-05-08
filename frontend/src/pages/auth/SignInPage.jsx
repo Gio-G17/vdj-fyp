@@ -20,11 +20,11 @@ const SignInPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:5001/api/auth/login", formData);
+      const response = await axios.post("http://localhost:5001/api/auth/signin", formData);
       const token = response.data.token;
 
       localStorage.setItem("token", token); // ✅ Save token
-      setMessage("Login successful!");
+      setMessage("SignIn successful!");
       navigate("/");
     } catch (error) {
       setMessage(error.response?.data?.message || "An error occurred");
@@ -32,8 +32,9 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="login-container">
-      <h2>Login</h2>
+    <div className="signin
+    -container">
+      <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="email"
@@ -56,7 +57,7 @@ const SignInPage = () => {
           Forgot Password?
         </Link>
 
-        <button type="submit">Login</button>
+        <button type="submit">SignIn</button>
         <p>{message}</p>
       </form>
     </div>

@@ -43,9 +43,8 @@ const ResetPasswordPage = () => {
 
       setMessage(response.data.message || "Password reset successful!");
       
-      // Redirect to login after success
       setTimeout(() => {
-        navigate("/login");
+        navigate("/signin");
       }, 2000);
     } catch (error) {
       setMessage(error.response?.data?.error || "An error occurred.");
