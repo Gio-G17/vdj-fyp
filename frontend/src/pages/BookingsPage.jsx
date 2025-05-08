@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import BookingFormModal from "../components/BookingFormModal";
+import "../styles/bookings.css"; // 🔗 Link to your plain CSS file
+import TrashIcon from "../assets/icons/trashCanIcon.png"; // or .png
 
 const BookingsPage = () => {
   const [bookings, setBookings] = useState([]);
@@ -25,9 +27,22 @@ const BookingsPage = () => {
     }
   };
 
+  const deleteBooking = async (id) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:5001/api/bookings/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      fetchBookings(); // Refresh after delete
+    } catch (err) {
+      console.error("Failed to delete booking", err);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (!token) {
       navigate("/signin");
     } else {
@@ -35,25 +50,39 @@ const BookingsPage = () => {
     }
   }, []);
 
-  if (loading) return <p style={{ color: "white" }}>Loading bookings...</p>;
-
+  if (loading) return <p className="loading-text">Loading bookings...</p>;
 
   return (
     <div className="bookings-page">
-      <h1>My Bookings</h1>
-      <button onClick={() => setOpenModal(true)}>New Booking</button>
+      <h1 className="page-title">My Bookings</h1>
+      <button className="new-booking-btn" onClick={() => setOpenModal(true)}>
+        New Booking
+      </button>
 
       {bookings.length === 0 ? (
-        <p>No bookings found</p>
+        <p className="no-bookings">No bookings found</p>
       ) : (
-        <ul>
+        <ul className="booking-list">
           {bookings.map((booking) => (
-            <li key={booking._id} style={{ marginBottom: "12px" }}>
-              {booking.date} @ {booking.time} — {booking.room} with {booking.dj}
-              <br />
-              <Link to={`/access-room/${booking._id}`}>
-                <button style={{ marginTop: "6px" }}>Go to Room</button>
-              </Link>
+            <li key={booking._id} className="booking-item">
+              <div className="booking-info">
+                <p className="booking-details">
+                  <span>{booking.date} @ {booking.time}</span> — <span>{booking.room}</span><br />
+                  DJ: {booking.dj?.name || "Unknown DJ"}
+                </p>
+                <div className="booking-actions">
+                  <Link to={`/access-room/${booking._id}`}>
+                    <button className="go-btn">Go to Room</button>
+                  </Link>
+                  <img
+                    src={TrashIcon}
+                    alt="Delete"
+                    className="trash-icon"
+                    onClick={() => deleteBooking(booking._id)}
+                  />
+
+                </div>
+              </div>
             </li>
           ))}
         </ul>
