@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/auth/SignUpPage"; // Import SignUpPage
-import SignInPage from "./pages/auth/SignInPage"; // Import LoginPage
+import SignInPage from "./pages/auth/SignInPage"; // Import SignInPage
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage"; // Import
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage"; // Import Reset Password Page
 import BookingsPage from "./pages/BookingsPage";

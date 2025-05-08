@@ -10,7 +10,22 @@ const BookingsPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [djList, setDjList] = useState([]);
 
+  const fetchDJs = async () => {
+    try {
+      const res = await axios.get("http://localhost:5001/api/users/djs");
+      setDjList(res.data);
+    } catch (err) {
+      console.error("Failed to fetch DJs", err);
+    }
+  };
+  
+  const getDJName = (djId) => {
+    const found = djList.find((dj) => dj._id === djId);
+    return found?.name || "Unknown DJ";
+  };
+  
   const fetchBookings = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -47,6 +62,8 @@ const BookingsPage = () => {
       navigate("/signin");
     } else {
       fetchBookings();
+      fetchDJs(); // ✅ fetch all DJs here
+
     }
   }, []);
 
@@ -67,8 +84,8 @@ const BookingsPage = () => {
             <li key={booking._id} className="booking-item">
               <div className="booking-info">
                 <p className="booking-details">
-                  <span>{booking.date} @ {booking.time}</span> — <span>{booking.room}</span><br />
-                  DJ: {booking.dj?.name || "Unknown DJ"}
+                  <span>{booking.date} @ {booking.time}</span> — <span>{booking.room}</span> with <span>{getDJName(booking.dj)}</span> <br />
+                 
                 </p>
                 <div className="booking-actions">
                   <Link to={`/access-room/${booking._id}`}>
