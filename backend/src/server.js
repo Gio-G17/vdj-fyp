@@ -20,7 +20,7 @@ const server = http.createServer(app);
 
 const corsOptions = {
   origin: "http://localhost:5173", // ✅ Use your frontend address
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   credentials: true,
 };
 

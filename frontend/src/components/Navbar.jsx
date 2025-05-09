@@ -25,7 +25,6 @@ const Navbar = () => {
           </HashLink>
 
           <Link to="/bookings" className="nav-item">Book</Link>
-          <Link to="/stream" className="nav-item">Stream</Link>
           <Link to="/contact" className="nav-item">Contact</Link>
         </div>
       </div>
